@@ -36,23 +36,29 @@ export function timeToMixJuice(name) {
  * @returns {number} number of limes cut
  */
 export function limesToCut(wedgesNeeded, limes) {
-  if (!limes.length || wedgesNeeded === 0) return 0;
-  const legend = {
-    small: 6,
-    medium: 8,
-    large: 10,
-  };
-  let sum = 0;
-  let index = 0;
-  const data = limes.map((element) => legend[element]);
-  data.some((a, i) => {
-    index = i;
-    if (sum + a >= wedgesNeeded) {
-      return true;
+  let numOfLimes = 0;
+  let wedges = 0;
+  for (let size of limes) {
+    if (wedges < wedgesNeeded) {
+      switch (size) {
+        case 'small':
+          wedges += 6;
+          numOfLimes++;
+          break;
+        case 'medium':
+          wedges += 8;
+          numOfLimes++;
+          break;
+        case 'large':
+          wedges += 10;
+          numOfLimes++;
+          break;
+        default:
+          null;
+      }
     }
-    sum += a;
-  });
-  return index + 1;
+  }
+  return numOfLimes;
 }
 
 /**
@@ -64,8 +70,10 @@ export function limesToCut(wedgesNeeded, limes) {
  * @returns {string[]} remaining orders after the time is up
  */
 export function remainingOrders(timeLeft, orders) {
-  const timeNeededForDrinks = orders
-    .map(timeToMixJuice)
-    .filter((o) => o < timeLeft);
-  console.log({ timeNeededForDrinks });
+  while (timeLeft > 0) {
+    const currentOrder = orders[0];
+    timeLeft -= timeToMixJuice(currentOrder);
+    orders.shift();
+  }
+  return orders;
 }
