@@ -35,14 +35,37 @@ export function timeToMixJuice(name) {
  * @param {string[]} limes
  * @returns {number} number of limes cut
  */
+export function limesToCut(wedgesNeeded, limes) {
+  if (!limes.length || wedgesNeeded === 0) return 0;
+  const legend = {
+    small: 6,
+    medium: 8,
+    large: 10,
+  };
+  let sum = 0;
+  let index = 0;
+  const data = limes.map((element) => legend[element]);
+  data.some((a, i) => {
+    index = i;
+    if (sum + a >= wedgesNeeded) {
+      return true;
+    }
+    sum += a;
+  });
+  return index + 1;
+}
 
 /**
  * Determines which juices still need to be prepared after the end of the shift.
  *
  * @param {number} timeLeft
  * @param {string[]} orders
+ *
  * @returns {string[]} remaining orders after the time is up
  */
 export function remainingOrders(timeLeft, orders) {
-  throw new Error('Please implement the remainingOrders function');
+  const timeNeededForDrinks = orders
+    .map(timeToMixJuice)
+    .filter((o) => o < timeLeft);
+  console.log({ timeNeededForDrinks });
 }
