@@ -20,7 +20,9 @@ export function createVisitor(name, age, ticketId) {
  * @returns {Visitor} the visitor without a ticket
  */
 export function revokeTicket(visitor) {
-  return { ...visitor, ticketId: null };
+  if (!visitor['ticketId']) return visitor;
+  visitor['ticketId'] = null;
+  return visitor;
 }
 
 /**
@@ -51,7 +53,15 @@ export function ticketStatus(tickets, ticketId) {
  * @returns {string} ticket status
  */
 export function simpleTicketStatus(tickets, ticketId) {
-  throw new Error('Please implement the simpleTicketStatus function.');
+  if (ticketId in tickets === false || tickets[ticketId] === null)
+    return 'invalid ticket !!!';
+  const keys = Object.keys(tickets);
+  const status = keys.map((keyId) => {
+    if (keyId === ticketId) {
+      return `${tickets[keyId]}`;
+    }
+  });
+  return status.join('');
 }
 
 /**
@@ -61,5 +71,9 @@ export function simpleTicketStatus(tickets, ticketId) {
  * @returns {string | undefined} version
  */
 export function gtcVersion(visitor) {
-  throw new Error('Please implement the gtcVersion function.');
+  if ('gtc' in visitor) {
+    const { version } = visitor.gtc;
+    return version;
+  }
+  return undefined;
 }
