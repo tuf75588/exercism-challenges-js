@@ -23,7 +23,8 @@ export function twoSum(array1, array2) {
  * @returns {boolean}  whether the number is a palindrome or not
  */
 export function luckyNumber(value) {
-  throw new Error('Implement the luckyNumber function');
+  const str = value.toString();
+  return str === value.toString().split('').reverse().join('');
 }
 
 /**
@@ -34,5 +35,8 @@ export function luckyNumber(value) {
  * @returns {string} error message
  */
 export function errorMessage(input) {
-  throw new Error('Implement the errorMessage function');
+  if (!input) return 'Required field';
+  return isNaN(Number(input)) || input === '0'
+    ? 'Must be a number besides 0'
+    : '';
 }
