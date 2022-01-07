@@ -19,3 +19,34 @@ export function cookingStatus(time) {
 export function preparationTime(layers, prepTime = 2) {
   return layers.length * prepTime;
 }
+
+export function quantities(ingredients) {
+  const noodles = 50;
+  const sauce = 0.2;
+  const filterArray = (array, item) =>
+    array.filter((element) => element === item);
+  const [noodleCount, sauceCount] = [
+    filterArray(ingredients, 'noodles'),
+    filterArray(ingredients, 'sauce'),
+  ];
+  return {
+    noodles: noodles * noodleCount.length,
+    sauce: sauce * sauceCount.length,
+  };
+}
+
+export function addSecretIngredient(friendsList, myList) {
+  const secret = friendsList[friendsList.length - 1];
+  myList.push(secret);
+}
+
+export function scaleRecipe(recipe, portions) {
+  if (portions === undefined) return {};
+  let copy = { ...recipe };
+  const scale = portions / 2;
+  const keys = Object.keys(copy).map((element) => {
+    copy[element] = copy[element] * scale;
+    return copy;
+  });
+  return keys[0];
+}
