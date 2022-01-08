@@ -30,7 +30,10 @@ export function getSecondCard(deck) {
  *
  * @returns {Card[]} new deck with reordered cards
  */
-export function swapTopTwoCards(deck) {}
+export function swapTopTwoCards(deck) {
+  [deck[0], deck[1]] = [deck[1], deck[0]];
+  return deck;
+}
 
 /**
  * Put the top card of the given deck into a separate discard pile
@@ -41,7 +44,8 @@ export function swapTopTwoCards(deck) {}
  * deck and a new deck containing all the other cards
  */
 export function discardTopCard(deck) {
-  throw new Error('Implement the discardTopCard function');
+  const topCard = deck[0];
+  return [topCard, deck.filter((x) => x !== topCard)];
 }
 
 /** @type Card[] **/
@@ -56,5 +60,14 @@ const FACE_CARDS = ['jack', 'queen', 'king'];
  * third, and fourth cards are the face cards
  */
 export function insertFaceCards(deck) {
-  throw new Error('Implement the insertFaceCards function');
+  if (!deck.length) {
+    deck.push(undefined, ...FACE_CARDS);
+  } else {
+    let start = 1;
+    for (let i = start; i < 4; i++) {
+      deck.splice(i, 0, FACE_CARDS[i - 1]);
+    }
+    return deck;
+  }
+  return deck;
 }
