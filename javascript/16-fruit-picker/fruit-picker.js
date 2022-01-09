@@ -31,10 +31,14 @@ export function isServiceOnline() {
  * @return {AvailabilityAction} the result from checkInventory
  */
 
-export function pickFruit(variety, quantity, callback) {
-  let data = checkInventory({ variety, quantity }, () => console.log('hello!'));
+function action(error, data) {
+  if (error) throw new Error(error);
+  return data;
 }
-
+export function pickFruit(variety, quantity, callback) {
+  let data = checkInventory({ variety, quantity }, callback);
+  return data;
+}
 /**
  * This is a callback function to be passed to the checkInventory API
  * handles the next step once the inventory is known
@@ -43,7 +47,9 @@ export function pickFruit(variety, quantity, callback) {
  * @return {AvailabilityAction} whether the fruit was purchased 'PURCHASE' or 'NOOP'
  */
 export function purchaseInventoryIfAvailable(err, isAvailable) {
-  throw new Error('Implement the purchaseInventoryIfAvailable function');
+  if (err) throw new Error('Inventory error');
+  if (isAvailable) return 'PURCHASE';
+  return 'NOOP';
 }
 
 /**
@@ -54,5 +60,6 @@ export function purchaseInventoryIfAvailable(err, isAvailable) {
  * @return {AvailabilityAction} whether the fruit was purchased 'PURCHASE' or 'NOOP'
  */
 export function pickAndPurchaseFruit(variety, quantity) {
-  throw new Error('Implement the pickAndPurchaseFruit function');
+  const pick = pickFruit(variety, quantity, purchaseInventoryIfAvailable);
+  return pick;
 }
