@@ -37,4 +37,15 @@ class ProgramWindow {
     this.size = size;
     this.position = position;
   }
+  resize(newSize = new Size()) {
+    let { width, height } = newSize;
+    const maxW = this.position.x;
+    const maxH = this.position.y;
+    if (height > maxH || width > maxW) {
+      width = this.position.x;
+      height = this.position.y;
+    }
+    this.size.width = width;
+    this.size.height = height;
+  }
 }
