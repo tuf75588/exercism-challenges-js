@@ -29,20 +29,23 @@ export class Position {
 
 export class ProgramWindow {
   constructor() {
-    this.screenSize = new Size(800,600);
+    this.screenSize = new Size(800, 600);
     this.size = new Size();
-    this.position = new Position()
+    this.position = new Position();
   }
-  resize(newSize = new Size()) {
-    const min = 1;
-    if (newSize.width < 1) this.size.width = 1;
-    if (newSize.height < 1) this.size.height = 1;
-    if (newSize.width > 1 && newSize.height > 1) {
-      this.size.width = newSize.width;
-      this.size.height = newSize.height;
+  resize(newSize) {
+    newSize.width = this.meetLimit(newSize.width, 1, this.screenSize.width, this.position.x);
+    newSize.height = this.meetLimit(newSize.height, 1, this.screenSize.height, this.position.y);
+
+    this.size.resize(newSize.width, newSize.height);
+  }
+
+  meetLimit(value, minValue, maxValue, addedValue) {
+    if (value < minValue) {
+      value = minValue;
+    } else if (value + addedValue > maxValue) {
+      value = maxValue - addedValue;
     }
-
-
+    return value;
   }
-
 }
