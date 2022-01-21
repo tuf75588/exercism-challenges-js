@@ -6,7 +6,7 @@
  * you defined so they are available for the tests.
  */
 
-function Size(width = 80, height = 60) {
+ export function Size(width = 80, height = 60) {
   this.width = width;
   this.height = height;
 
@@ -16,7 +16,7 @@ function Size(width = 80, height = 60) {
   };
 }
 
-class Position {
+export class Position {
   constructor(x = 0, y = 0) {
     this.x = x;
     this.y = y;
@@ -27,25 +27,22 @@ class Position {
   }
 }
 
-class ProgramWindow {
-  constructor(
-    screenSize = new Size(800, 60),
-    size = new Size(),
-    position = new Position()
-  ) {
-    this.screenSize = screenSize;
-    this.size = size;
-    this.position = position;
+export class ProgramWindow {
+  constructor() {
+    this.screenSize = new Size(800,600);
+    this.size = new Size();
+    this.position = new Position()
   }
   resize(newSize = new Size()) {
-    let { width, height } = newSize;
-    const maxW = this.position.x;
-    const maxH = this.position.y;
-    if (height > maxH || width > maxW) {
-      width = this.position.x;
-      height = this.position.y;
+    const min = 1;
+    if (newSize.width < 1) this.size.width = 1;
+    if (newSize.height < 1) this.size.height = 1;
+    if (newSize.width > 1 && newSize.height > 1) {
+      this.size.width = newSize.width;
+      this.size.height = newSize.height;
     }
-    this.size.width = width;
-    this.size.height = height;
+
+
   }
+
 }
