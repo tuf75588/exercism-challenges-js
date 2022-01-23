@@ -6,7 +6,7 @@
  * you defined so they are available for the tests.
  */
 
- export function Size(width = 80, height = 60) {
+export function Size(width = 80, height = 60) {
   this.width = width;
   this.height = height;
 
@@ -34,8 +34,18 @@ export class ProgramWindow {
     this.position = new Position();
   }
   resize(newSize) {
-    newSize.width = this.meetLimit(newSize.width, 1, this.screenSize.width, this.position.x);
-    newSize.height = this.meetLimit(newSize.height, 1, this.screenSize.height, this.position.y);
+    newSize.width = this.meetLimit(
+      newSize.width,
+      1,
+      this.screenSize.width,
+      this.position.x
+    );
+    newSize.height = this.meetLimit(
+      newSize.height,
+      1,
+      this.screenSize.height,
+      this.position.y
+    );
 
     this.size.resize(newSize.width, newSize.height);
   }
@@ -47,5 +57,21 @@ export class ProgramWindow {
       value = maxValue - addedValue;
     }
     return value;
+  }
+
+  move(newSize) {
+    newSize.x = this.meetLimit(
+      newSize.x,
+      0,
+      this.screenSize.width,
+      this.size.width
+    );
+    newSize.y = this.meetLimit(
+      newSize.y,
+      0,
+      this.screenSize.height,
+      this.size.height
+    );
+    this.position.move(newSize.x, newSize.y);
   }
 }
