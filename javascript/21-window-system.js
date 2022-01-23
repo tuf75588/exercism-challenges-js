@@ -47,6 +47,7 @@ export class ProgramWindow {
       this.position.y
     );
 
+    // @ts-ignore
     this.size.resize(newSize.width, newSize.height);
   }
 
