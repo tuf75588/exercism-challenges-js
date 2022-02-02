@@ -1,22 +1,19 @@
+
 const spaceKey = {
   mercury: 0.2408467,
   venus: 0.61519726,
-  earth: 365.25,
+  earth: 1.0,
   mars: 1.8808158,
-  jupiter: 1.8808158,
+  jupiter: 11.862615,
   saturn: 29.447498,
-  uranus: 29.447498,
-  neptune: 29.447498,
+  uranus: 84.016846,
+  neptune: 164.79132,
 };
 
+
 export const age = (planet, secondsOld) => {
-  const days = 365.25;
-  const hours = 24;
-  const minutes = 60;
-  const seconds = 60;
-  const earthFormula = secondsOld / (days * hours * minutes * seconds);
-  const earthYears = earthFormula.toFixed(2);
-  return planet === 'earth'
-    ? Number(earthYears)
-    : Number((earthYears / spaceKey[planet]).toFixed(2));
+  const earthYears = secondsOld / (365.25 * 24 * 60 * 60);
+  const otherYears = earthYears / spaceKey[planet];
+  return Number(otherYears.toFixed(2))
 };
+
