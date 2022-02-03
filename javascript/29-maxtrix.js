@@ -5,10 +5,15 @@
 
 export class Matrix {
   constructor(string) {
-    this.string = string.split('\n');
+    this._rows = string.split('\n').map(e => e.split(' ').map(Number));
+    this._columns = this.rows[0].map((x,i) => this._rows.map(row => row[i]))
   }
 
-  get rows() {}
+  get rows() {
+    return this._rows;
+  }
 
-  get columns() {}
+  get columns() {
+    return this._columns;
+  }
 }
