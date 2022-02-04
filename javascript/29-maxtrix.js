@@ -5,8 +5,8 @@
 
 export class Matrix {
   constructor(string) {
-    this._rows = string.split('\n').map(e => e.split(' ').map(Number));
-    this._columns = this.rows[0].map((x,i) => this._rows.map(row => row[i]))
+    this._rows = string.split('\n').map((e) => e.split(' ').map(Number));
+    this._columns = this.rows[0].map((_, i) => this._rows.map((row) => row[i]));
   }
 
   get rows() {
