@@ -4,10 +4,9 @@
 //
 
 export const hey = (message) => {
-    const forcefulQuestion = /[A-Z]+[?]$/gm;
-    if (forcefulQuestion.test(message)) {
-      return "Calm down, I know what I'm doing!";
-    }
-    
+    const normal_question = /[a-z]+[?]$/gm;
+    const forceful_question = /\b[A-Z]+[?]$/gm;
+    const all_caps = /(\b[A-Z]+\b){3,}/gm;
+    const silence = message.length === 0;
   };
   
