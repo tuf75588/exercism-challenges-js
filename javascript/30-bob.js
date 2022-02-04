@@ -4,6 +4,10 @@
 //
 
 export const hey = (message) => {
-    throw new Error('Remove this statement and implement this function');
+    const forcefulQuestion = /[A-Z]+[?]$/gm;
+    if (forcefulQuestion.test(message)) {
+      return "Calm down, I know what I'm doing!";
+    }
+    
   };
   
