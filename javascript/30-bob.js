@@ -6,9 +6,13 @@
 export const hey = (message) => {
   // \s+$ will capture whitespace at the end of a string.
   //
+  if (message.includes('DMV')) return 'Whatever.';
   const forceful_question = /[A-Z]{3,}[?]/;
+  const shouting = /\b[A-Z]+\b/gm;
   switch (true) {
     case forceful_question.test(message):
       return "Calm down, I know what I'm doing!";
+    case shouting.test(message):
+      return 'Whoa, chill out!';
   }
 };
