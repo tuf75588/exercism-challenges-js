@@ -4,10 +4,17 @@
 //
 
 export const hey = (message) => {
-  const normal_question = /\?(?!\\|\n|\t)/;
+  const normal_question = /[a-z0-9\s]\?$(?!\\|\n|\t)/gm;
+  const shouting_question = /[A-Z]{3,}\?$(?!\\|\n|\t)/gm;
+  let shouting;
+  let silence = message.trim().length === 0;
   switch (true) {
-    case normal_question.test(message):
+    case normal_question.test(message.trim()):
         return "Sure."
+    case shouting_question.test(message): 
+        return "Calm down, I know what I'm doing!";
+    case silence:
+        return 'Fine. Be that way!';
     default:
      return "Whatever."
   }
